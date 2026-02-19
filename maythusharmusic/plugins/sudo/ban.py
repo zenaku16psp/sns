@@ -26,7 +26,7 @@ from maythusharmusic.utils.functions import (
     time_converter,
 )
 from maythusharmusic.utils.permissions import adminsOnly, member_permissions
-from config import BANNED_USERS, OWNER_ID
+from config import BANNED_USERS
 
 warnsdb = mongodb.warns
 
