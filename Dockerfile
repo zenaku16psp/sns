@@ -1,15 +1,32 @@
-FROM python:3.11-slim-bullseye
+# Base image
+FROM python:3.11-slim
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ffmpeg \
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first for better layer caching
+COPY requirements.txt .
+
+# Install system dependencies, Deno, and Python packages in a single layer
+RUN apt-get update -y && apt-get upgrade -y \
+    # Install system dependencies
+    && apt-get install -y --no-install-recommends \
+        ffmpeg \
+        curl \
+        unzip \
+        git \
+    # Install Deno
+    && curl -fsSL https://deno.land/install.sh | sh \
+    && ln -s /root/.deno/bin/deno /usr/local/bin/deno \
+    # Install Python dependencies from requirements.txt
+    && pip3 install -U pip \
+    && pip3 install -U -r requirements.txt --no-cache-dir \
+    # Clean up apt cache
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY . /app/
-WORKDIR /app/
+# Copy the rest of the application code
+COPY . .
 
-RUN python3 -m pip install --upgrade pip setuptools
-RUN apt-get update && apt-get install -y git
-RUN pip3 install --no-cache-dir --upgrade --requirement requirements.txt
-
-CMD python3 -m maythusharmusic
+# Set the default command
+CMD ["bash", "start"]
