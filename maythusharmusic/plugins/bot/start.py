@@ -151,20 +151,28 @@ async def start_pm(client, message: Message, _):
 
         # အစက်ကလေးများ (ID မလိုပါ၊ Unicode သုံးထားသည်)
         # ID သုံးချင်ရင် <emoji id="xxx">🔴</emoji> လို့ပြင်ရေးပါ
+        PREMIUM_EMOJI_4 = "6205967094039709231"
+        PREMIUM_EMOJI_5 = "6206217069726271155"
+        PREMIUM_EMOJI_6 = "6204129896009042249"
+        PREMIUM_EMOJI_7 = "6206275004540126842"
+        PREMIUM_EMOJI_8 = "6205967094039709231"
+        PREMIUM_EMOJI_9 = "6206217069726271155"
+        PREMIUM_EMOJI_10 = "6204129896009042249"
+        PREMIUM_EMOJI_11 = "6206275004540126842"
         
         # စာသားပြင်ဆင်မှု (HTML Format)
         START_TEXT = f"""
-<tg-emoji emoji-id='6205967094039709231'>😂</tg-emoji> ʜᴇʏ ʙᴀʙʏ : {message.from_user.mention} <emoji id="{PREMIUM_EMOJI_1}">🥺</emoji>
-<tg-emoji emoji-id='6206217069726271155'>😂</tg-emoji> ɪ ᴀᴍ {app.mention}, ʜᴇʀᴇ ᴛᴏ ᴘʀᴏᴠɪᴅᴇ ʏᴏᴜ ᴡɪᴛʜ ᴀ ꜱᴍᴏᴏᴛʜ ᴍᴜꜱɪᴄ ꜱᴛʀᴇᴀᴍɪɴɢ ᴇxᴘᴇʀɪᴇɴᴄᴇ <emoji id="{PREMIUM_EMOJI_2}">🤩</emoji>.
+<emoji id="{PREMIUM_EMOJI_4}">😂</emoji> ʜᴇʏ ʙᴀʙʏ : {message.from_user.mention} <emoji id="{PREMIUM_EMOJI_1}">🥺</emoji>
+<emoji id="{PREMIUM_EMOJI_5}">😂</emoji> ɪ ᴀᴍ {app.mention}, ʜᴇʀᴇ ᴛᴏ ᴘʀᴏᴠɪᴅᴇ ʏᴏᴜ ᴡɪᴛʜ ᴀ ꜱᴍᴏᴏᴛʜ ᴍᴜꜱɪᴄ ꜱᴛʀᴇᴀᴍɪɴɢ ᴇxᴘᴇʀɪᴇɴᴄᴇ <emoji id="{PREMIUM_EMOJI_2}">🤩</emoji>.
 
-<tg-emoji emoji-id='6204129896009042249'>😂</tg-emoji> ғᴇᴀᴛᴜʀᴇs
-<tg-emoji emoji-id='6206275004540126842'>😂</tg-emoji> ʜǫ ᴀᴜᴅɪᴏ : 320ᴋʙᴘs sᴛʀᴇᴀᴍɪɴɢ
-<tg-emoji emoji-id='6205967094039709231'>😂</tg-emoji> sᴛʀᴇᴀᴍ sᴜᴘᴘᴏʀᴛ : ᴀᴜᴅɪᴏ-ᴠɪᴅᴇᴏ
-<tg-emoji emoji-id='6206217069726271155'>😂</tg-emoji> 24-7 ᴜᴘᴛɪᴍᴇ : ᴇɴᴛᴇʀᴘʀɪsᴇ ʀᴇʟɪᴀʙɪʟɪᴛʏ
-<tg-emoji emoji-id='6204129896009042249'>😂</tg-emoji> ᴘʟᴀʏ ᴄᴏᴍᴍᴇɴᴛꜱ : ᴘʟᴀʏ, ᴠᴘʟᴀʏ 
-<tg-emoji emoji-id='6206275004540126842'>😂</tg-emoji> ʙᴀsᴇᴅ ᴏɴ : ʏᴏᴜᴛᴜʙᴇ ᴀᴘɪ
+<emoji id="{PREMIUM_EMOJI_6}">😂</emoji> ғᴇᴀᴛᴜʀᴇs
+<emoji id="{PREMIUM_EMOJI_7}">🥺</emoji> ʜǫ ᴀᴜᴅɪᴏ : 320ᴋʙᴘs sᴛʀᴇᴀᴍɪɴɢ
+<emoji id="{PREMIUM_EMOJI_8}">😂</emoji> sᴛʀᴇᴀᴍ sᴜᴘᴘᴏʀᴛ : ᴀᴜᴅɪᴏ-ᴠɪᴅᴇᴏ
+<emoji id="{PREMIUM_EMOJI_9}">😂</emoji> 24-7 ᴜᴘᴛɪᴍᴇ : ᴇɴᴛᴇʀᴘʀɪsᴇ ʀᴇʟɪᴀʙɪʟɪᴛʏ
+<emoji id="{PREMIUM_EMOJI_10}">😂</emoji> ᴘʟᴀʏ ᴄᴏᴍᴍᴇɴᴛꜱ : ᴘʟᴀʏ, ᴠᴘʟᴀʏ 
+<emoji id="{PREMIUM_EMOJI_11}">😂</emoji> ʙᴀsᴇᴅ ᴏɴ : ʏᴏᴜᴛᴜʙᴇ ᴀᴘɪ
 
-<tg-emoji emoji-id='6205967094039709231'>😂</tg-emoji> ʏᴏᴜ ᴄᴀɴ ᴜꜱᴇ ᴍᴇ ʙʏ ᴄʟɪᴄᴋɪɴɢ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ <emoji id="{PREMIUM_EMOJI_3}">😙</emoji>."""
+<emoji id="{PREMIUM_EMOJI_1}">😂</emoji> ʏᴏᴜ ᴄᴀɴ ᴜꜱᴇ ᴍᴇ ʙʏ ᴄʟɪᴄᴋɪɴɢ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ <emoji id="{PREMIUM_EMOJI_3}">😙</emoji>."""
 
         await message.reply_photo(
             photo=chat_photo,
