@@ -1,10 +1,11 @@
 #stream.py
 import os
+import html  # <--- (1) HTML library ကို import လုပ်ရပါမည်
 from random import randint
 from typing import Union
 
 from pyrogram.types import InlineKeyboardMarkup
-from pyrogram.enums import ParseMode # ParseMode ကို import လုပ်ပါတယ်
+from pyrogram.enums import ParseMode
 
 import config
 from maythusharmusic import Carbon, YouTube, app
@@ -39,12 +40,11 @@ async def stream(
     # ==========================================
     # 📌 CUSTOM MESSAGE TEMPLATES
     # ==========================================
-    PREMIUM_EMOJI_1 = "6118554197349636961" # ခေါင်းစဉ်အပေါ်က Emoji
-    PREMIUM_EMOJI_2 = "6120817245682669397" # ခေါင်းစဉ်
-    PREMIUM_EMOJI_3 = "6120789212431129604" # ကြာချိန်
-    PREMIUM_EMOJI_4 = "6120500195491848532" # တောင်းဆိုသူ
+    PREMIUM_EMOJI_1 = "6118554197349636961" 
+    PREMIUM_EMOJI_2 = "6120817245682669397" 
+    PREMIUM_EMOJI_3 = "6120789212431129604" 
+    PREMIUM_EMOJI_4 = "6120500195491848532" 
 
-    # သီချင်းပုံမှန် (Title, Duration, Requester)
     stream_msg_track = (
         f"<emoji id='{PREMIUM_EMOJI_1}'>🥺</emoji> <b>စတင်ထုတ်လွှင့်နေပြီ</b>\n\n"
         f"<emoji id='{PREMIUM_EMOJI_2}'>🥺</emoji> <b>ခေါင်းစဉ် :</b> <a href='{{link}}'>{{title}}</a>\n"
@@ -52,7 +52,6 @@ async def stream(
         f"<emoji id='{PREMIUM_EMOJI_4}'>🥺</emoji> <b>တောင်းဆိုသူ :</b> {{requester}}"
     )
 
-    # Live Stream သို့မဟုတ် Index အတွက်
     stream_msg_live = (
         f"<emoji id='{PREMIUM_EMOJI_1}'>🥺</emoji> <b>စတင်ထုတ်လွှင့်နေပြီ</b>\n\n"
         f"<emoji id='{PREMIUM_EMOJI_2}'>🥺</emoji> <b>Stream Type :</b> Live Stream\n"
@@ -134,12 +133,15 @@ async def stream(
                 img = await get_thumb(vidid)
                 button = stream_markup(_, chat_id)
                 
-                # CUSTOM CAPTION
+                # <--- (2) HTML Escape ပြုလုပ်ခြင်း (Safety)
+                safe_title = html.escape(title)
+                safe_user_name = html.escape(user_name)
+
                 caption_text = stream_msg_track.format(
                     link=f"https://t.me/{app.username}?start=info_{vidid}",
-                    title=title[:23],
+                    title=safe_title[:23],
                     duration=duration_min,
-                    requester=user_name
+                    requester=safe_user_name
                 )
 
                 run = await app.send_photo(
@@ -237,12 +239,15 @@ async def stream(
             img = await get_thumb(vidid)
             button = stream_markup(_, chat_id)
             
-            # CUSTOM CAPTION
+            # <--- (2) HTML Escape ပြုလုပ်ခြင်း
+            safe_title = html.escape(title)
+            safe_user_name = html.escape(user_name)
+
             caption_text = stream_msg_track.format(
                 link=f"https://t.me/{app.username}?start=info_{vidid}",
-                title=title[:23],
+                title=safe_title[:23],
                 duration=duration_min,
-                requester=user_name
+                requester=safe_user_name
             )
 
             run = await app.send_photo(
@@ -295,12 +300,15 @@ async def stream(
             )
             button = stream_markup(_, chat_id)
             
-            # CUSTOM CAPTION
+            # <--- (2) HTML Escape
+            safe_title = html.escape(title)
+            safe_user_name = html.escape(user_name)
+            
             caption_text = stream_msg_track.format(
                 link=config.SUPPORT_GROUP, 
-                title=title[:23], 
+                title=safe_title[:23], 
                 duration=duration_min, 
-                requester=user_name
+                requester=safe_user_name
             )
 
             run = await app.send_photo(
@@ -357,12 +365,15 @@ async def stream(
                 await add_active_video_chat(chat_id)
             button = stream_markup(_, chat_id)
             
-            # CUSTOM CAPTION
+            # <--- (2) HTML Escape
+            safe_title = html.escape(title)
+            safe_user_name = html.escape(user_name)
+
             caption_text = stream_msg_track.format(
                 link=link, 
-                title=title[:23], 
+                title=safe_title[:23], 
                 duration=duration_min, 
-                requester=user_name
+                requester=safe_user_name
             )
 
             run = await app.send_photo(
@@ -428,12 +439,15 @@ async def stream(
             img = await get_thumb(vidid)
             button = stream_markup(_, chat_id)
             
-            # CUSTOM CAPTION
+            # <--- (2) HTML Escape
+            safe_title = html.escape(title)
+            safe_user_name = html.escape(user_name)
+
             caption_text = stream_msg_track.format(
                 link=f"https://t.me/{app.username}?start=info_{vidid}",
-                title=title[:23],
+                title=safe_title[:23],
                 duration=duration_min,
-                requester=user_name
+                requester=safe_user_name
             )
 
             run = await app.send_photo(
@@ -488,9 +502,11 @@ async def stream(
             )
             button = stream_markup(_, chat_id)
             
-            # CUSTOM CAPTION (LIVE)
+            # <--- (2) HTML Escape
+            safe_user_name = html.escape(user_name)
+
             caption_text = stream_msg_live.format(
-                requester=user_name
+                requester=safe_user_name
             )
 
             run = await app.send_photo(
