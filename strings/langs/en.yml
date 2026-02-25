@@ -222,8 +222,8 @@ queue_8 : "<b>{0} ᴘʟᴀʏᴇʀ</b>\n\n🎄 <b>sᴛʀᴇᴀᴍɪɴɢ :</b> {1}
 #stream_1 : "<emoji id='6118554197349636961'>🥺</emoji> <b>စတင်ထုတ်လွှင့်နေပြီ</b>\n\n<emoji id='6120817245682669397'>🥺</emoji> <b>ခေါင်းစဉ် :</b> <a href='{0}'>{1}</a>\n<emoji id='6120789212431129604'>🥺</emoji> <b>ကြာချိန် :</b> {2} မိနစ်\n<emoji id='6120500195491848532'>🥺</emoji> <b>တောင်းဆိုသူ :</b> {3}"
 #stream_2 : "<emoji id='6118554197349636961'>🥺</emoji> <b>စတင်ထုတ်လွှင့်နေပြီ</b>\n\n<emoji id='6120817245682669397'>🥺</emoji> <b>ထုတ်လွှင့်မှုအမျိုးအစား :</b> Live Stream\n<emoji id='6120500195491848532'>🥺</emoji> <b>တောင်းဆိုသူ :</b> {0}"
 
-stream_1 : "<b><blockquote>➲ <b>Sᴛᴀʀᴛᴇᴅ Sᴛʀᴇᴀᴍɪɴɢ |</blockquote></b>\n\n<b><blockquote>‣ Tɪᴛʟᴇ :</b> <a href={0}>{1}</a>\n<b>‣ Dᴜʀᴀᴛɪᴏɴ :</b> {2} ᴍɪɴᴜᴛᴇs\n<b>‣ Rᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b> {3}<b></blockquote>\n<b>"
-stream_2 : "<b><blockquote>➲ <b>Sᴛᴀʀᴛᴇᴅ Sᴛʀᴇᴀᴍɪɴɢ |</blockquote></b>\n\n<b><blockquote>‣ Sᴛʀᴇᴀᴍ ᴛʏᴘᴇ :</b> ʟɪᴠᴇ sᴛʀᴇᴀᴍ [ᴜʀʟ]\n<b>‣ Rᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b> {0}</blockquote>" 
+#stream_1 : "<b><blockquote>➲ <b>Sᴛᴀʀᴛᴇᴅ Sᴛʀᴇᴀᴍɪɴɢ |</blockquote></b>\n\n<b><blockquote>‣ Tɪᴛʟᴇ :</b> <a href={0}>{1}</a>\n<b>‣ Dᴜʀᴀᴛɪᴏɴ :</b> {2} ᴍɪɴᴜᴛᴇs\n<b>‣ Rᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b> {3}<b></blockquote>\n<b>"
+#stream_2 : "<b><blockquote>➲ <b>Sᴛᴀʀᴛᴇᴅ Sᴛʀᴇᴀᴍɪɴɢ |</blockquote></b>\n\n<b><blockquote>‣ Sᴛʀᴇᴀᴍ ᴛʏᴘᴇ :</b> ʟɪᴠᴇ sᴛʀᴇᴀᴍ [ᴜʀʟ]\n<b>‣ Rᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b> {0}</blockquote>" 
 stream_3 : "➲ <b>ပြုလုပ်သူ ‣ [ဝမ်လင်း](https://t.me/iwillgoforwardalone)"
 
 #General
