@@ -1,5 +1,5 @@
 from pyrogram import filters
-from pyrogram.enums import ChatType
+from pyrogram.enums import ChatType, ParseMode
 from pyrogram.errors import MessageNotModified
 from pyrogram.types import (
     CallbackQuery,
@@ -86,15 +86,45 @@ async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
         await CallbackQuery.answer()
     except:
         pass
+    
     if CallbackQuery.message.chat.type == ChatType.PRIVATE:
         await app.resolve_peer(OWNER_ID)
         OWNER = OWNER_ID
         buttons = private_panel(_)
+
+        # --- Emoji Definitions ---
+        PREMIUM_EMOJI_1 = "6120465303177533732" 
+        PREMIUM_EMOJI_2 = "6120591326107935086" 
+        PREMIUM_EMOJI_3 = "6120398056874582504"
+        PREMIUM_EMOJI_4 = "6205967094039709231"
+        PREMIUM_EMOJI_5 = "6206217069726271155"
+        PREMIUM_EMOJI_6 = "6204129896009042249"
+        PREMIUM_EMOJI_7 = "6206275004540126842"
+        PREMIUM_EMOJI_8 = "6205967094039709231"
+        PREMIUM_EMOJI_9 = "6206217069726271155"
+        PREMIUM_EMOJI_10 = "6204129896009042249"
+        PREMIUM_EMOJI_11 = "6206275004540126842"
+        
+        # --- START_TEXT Definition ---
+        # Callback ဖြစ်တဲ့အတွက် CallbackQuery.from_user.mention ကိုသုံးထားပါတယ်
+        START_TEXT = f"""
+<emoji id="{PREMIUM_EMOJI_4}">😂</emoji> ʜᴇʏ ʙᴀʙʏ : {CallbackQuery.from_user.mention} <emoji id="{PREMIUM_EMOJI_1}">🥺</emoji>
+<emoji id="{PREMIUM_EMOJI_5}">😂</emoji> ɪ ᴀᴍ {app.mention}, ʜᴇʀᴇ ᴛᴏ ᴘʀᴏᴠɪᴅᴇ ʏᴏᴜ ᴡɪᴛʜ ᴀ ꜱᴍᴏᴏᴛʜ ᴍᴜꜱɪᴄ ꜱᴛʀᴇᴀᴍɪɴɢ ᴇxᴘᴇʀɪᴇɴᴄᴇ <emoji id="{PREMIUM_EMOJI_2}">🤩</emoji>.
+
+<emoji id="{PREMIUM_EMOJI_6}">😂</emoji> ғᴇᴀᴛᴜʀᴇs
+<emoji id="{PREMIUM_EMOJI_7}">🥺</emoji> ʜǫ ᴀᴜᴅɪᴏ : 320ᴋʙᴘs sᴛʀᴇᴀᴍɪɴɢ
+<emoji id="{PREMIUM_EMOJI_8}">😂</emoji> sᴛʀᴇᴀᴍ sᴜᴘᴘᴏʀᴛ : ᴀᴜᴅɪᴏ-ᴠɪᴅᴇᴏ
+<emoji id="{PREMIUM_EMOJI_9}">😂</emoji> 24-7 ᴜᴘᴛɪᴍᴇ : ᴇɴᴛᴇʀᴘʀɪsᴇ ʀᴇʟɪᴀʙɪʟɪᴛʏ
+<emoji id="{PREMIUM_EMOJI_10}">😂</emoji> ᴘʟᴀʏ ᴄᴏᴍᴍᴇɴᴛꜱ : ᴘʟᴀʏ, ᴠᴘʟᴀʏ 
+<emoji id="{PREMIUM_EMOJI_11}">😂</emoji> ʙᴀsᴇᴅ ᴏɴ : ʏᴏᴜᴛᴜʙᴇ ᴀᴘɪ
+
+<emoji id="{PREMIUM_EMOJI_1}">😂</emoji> ʏᴏᴜ ᴄᴀɴ ᴜꜱᴇ ᴍᴇ ʙʏ ᴄʟɪᴄᴋɪɴɢ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ʙᴇʟᴏᴡ <emoji id="{PREMIUM_EMOJI_3}">😙</emoji>."""
+
         return await CallbackQuery.edit_message_media(
             InputMediaPhoto(
                 media=START_IMG_URL,
-                caption=_["start_2"].format(
-                    CallbackQuery.from_user.first_name, app.mention),
+                caption=START_TEXT,
+                parse_mode=ParseMode.HTML # ဒီနေရာမှာ HTML mode ကို သတ်မှတ်ပေးလိုက်ပါပြီ
             ),
             reply_markup=InlineKeyboardMarkup(buttons),
         )
@@ -405,5 +435,4 @@ async def vote_change(client, CallbackQuery, _):
         )
     except MessageNotModified:
         return
-
 
