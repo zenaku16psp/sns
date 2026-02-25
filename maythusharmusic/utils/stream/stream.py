@@ -4,6 +4,7 @@ from random import randint
 from typing import Union
 
 from pyrogram.types import InlineKeyboardMarkup
+from pyrogram.enums import ParseMode # ParseMode ကို import လုပ်ပါတယ်
 
 import config
 from maythusharmusic import Carbon, YouTube, app
@@ -34,6 +35,31 @@ async def stream(
         return
     if forceplay:
         await Hotty.force_stop_stream(chat_id)
+
+    # ==========================================
+    # 📌 CUSTOM MESSAGE TEMPLATES
+    # ==========================================
+    PREMIUM_EMOJI_1 = "6118554197349636961" # ခေါင်းစဉ်အပေါ်က Emoji
+    PREMIUM_EMOJI_2 = "6120817245682669397" # ခေါင်းစဉ်
+    PREMIUM_EMOJI_3 = "6120789212431129604" # ကြာချိန်
+    PREMIUM_EMOJI_4 = "6120500195491848532" # တောင်းဆိုသူ
+
+    # သီချင်းပုံမှန် (Title, Duration, Requester)
+    stream_msg_track = (
+        f"<emoji id='{PREMIUM_EMOJI_1}'>🥺</emoji> <b>စတင်ထုတ်လွှင့်နေပြီ</b>\n\n"
+        f"<emoji id='{PREMIUM_EMOJI_2}'>🥺</emoji> <b>ခေါင်းစဉ် :</b> <a href='{{link}}'>{{title}}</a>\n"
+        f"<emoji id='{PREMIUM_EMOJI_3}'>🥺</emoji> <b>ကြာချိန် :</b> {{duration}} မိနစ်\n"
+        f"<emoji id='{PREMIUM_EMOJI_4}'>🥺</emoji> <b>တောင်းဆိုသူ :</b> {{requester}}"
+    )
+
+    # Live Stream သို့မဟုတ် Index အတွက်
+    stream_msg_live = (
+        f"<emoji id='{PREMIUM_EMOJI_1}'>🥺</emoji> <b>စတင်ထုတ်လွှင့်နေပြီ</b>\n\n"
+        f"<emoji id='{PREMIUM_EMOJI_2}'>🥺</emoji> <b>Stream Type :</b> Live Stream\n"
+        f"<emoji id='{PREMIUM_EMOJI_4}'>🥺</emoji> <b>တောင်းဆိုသူ :</b> {{requester}}"
+    )
+    # ==========================================
+
     if streamtype == "playlist":
         msg = f"{_['play_19']}\n\n"
         count = 0
@@ -75,12 +101,10 @@ async def stream(
                     db[chat_id] = []
                 status = True if video else None
 
-                # --- START OF MODIFICATION (LOCATION 1) ---
                 try:
                     await mystic.edit_text(_["play_dl"].format(title))
                 except KeyError:
                     await mystic.edit_text(f"Dow͟n͟l͟o͟a͟d͟ ဆွဲနေပါသည် ● ᥫ᭡ {title}")
-                # --- END OF MODIFICATION ---
 
                 try:
                     file_path, direct = await YouTube.download(
@@ -109,16 +133,21 @@ async def stream(
                 )
                 img = await get_thumb(vidid)
                 button = stream_markup(_, chat_id)
+                
+                # CUSTOM CAPTION
+                caption_text = stream_msg_track.format(
+                    link=f"https://t.me/{app.username}?start=info_{vidid}",
+                    title=title[:23],
+                    duration=duration_min,
+                    requester=user_name
+                )
+
                 run = await app.send_photo(
                     original_chat_id,
                     photo=img,
-                    caption=_["stream_1"].format(
-                        f"https://t.me/{app.username}?start=info_{vidid}",
-                        title[:23],
-                        duration_min,
-                        user_name,
-                    ),
+                    caption=caption_text,
                     reply_markup=InlineKeyboardMarkup(button),
+                    parse_mode=ParseMode.HTML
                 )
                 db[chat_id][0]["mystic"] = run
                 db[chat_id][0]["markup"] = "stream"
@@ -152,12 +181,10 @@ async def stream(
         if current_queue is not None and len(current_queue) >= 50:
             return await app.send_message(original_chat_id, "You can't add more than 50 songs to the queue.")
 
-        # --- START OF MODIFICATION (LOCATION 2) ---
         try:
             await mystic.edit_text(_["play_dl"].format(title))
         except KeyError:
             await mystic.edit_text(f"Dow͟n͟l͟o͟a͟d͟ ဆွဲနေပါသည် ● ᥫ᭡ {title}")
-        # --- END OF MODIFICATION ---
 
         try:
             file_path, direct = await YouTube.download(
@@ -170,7 +197,7 @@ async def stream(
             await put_queue(
                 chat_id,
                 original_chat_id,
-                file_path,  # <-- (FAST JOIN ပြင်ဆင်မှု ၁)
+                file_path,
                 title,
                 duration_min,
                 user_name,
@@ -198,7 +225,7 @@ async def stream(
             await put_queue(
                 chat_id,
                 original_chat_id,
-                file_path,  # <-- (FAST JOIN ပြင်ဆင်မှု ၂)
+                file_path,
                 title,
                 duration_min,
                 user_name,
@@ -209,16 +236,21 @@ async def stream(
             )
             img = await get_thumb(vidid)
             button = stream_markup(_, chat_id)
+            
+            # CUSTOM CAPTION
+            caption_text = stream_msg_track.format(
+                link=f"https://t.me/{app.username}?start=info_{vidid}",
+                title=title[:23],
+                duration=duration_min,
+                requester=user_name
+            )
+
             run = await app.send_photo(
                 original_chat_id,
                 photo=img,
-                caption=_["stream_1"].format(
-                    f"https://t.me/{app.username}?start=info_{vidid}",
-                    title[:23],
-                    duration_min,
-                    user_name,
-                ),
+                caption=caption_text,
                 reply_markup=InlineKeyboardMarkup(button),
+                parse_mode=ParseMode.HTML
             )
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "stream"
@@ -262,13 +294,21 @@ async def stream(
                 forceplay=forceplay,
             )
             button = stream_markup(_, chat_id)
+            
+            # CUSTOM CAPTION
+            caption_text = stream_msg_track.format(
+                link=config.SUPPORT_GROUP, 
+                title=title[:23], 
+                duration=duration_min, 
+                requester=user_name
+            )
+
             run = await app.send_photo(
                 original_chat_id,
                 photo=config.SOUNCLOUD_IMG_URL,
-                caption=_["stream_1"].format(
-                    config.SUPPORT_GROUP, title[:23], duration_min, user_name
-                ),
+                caption=caption_text,
                 reply_markup=InlineKeyboardMarkup(button),
+                parse_mode=ParseMode.HTML
             )
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
@@ -316,11 +356,21 @@ async def stream(
             if video:
                 await add_active_video_chat(chat_id)
             button = stream_markup(_, chat_id)
+            
+            # CUSTOM CAPTION
+            caption_text = stream_msg_track.format(
+                link=link, 
+                title=title[:23], 
+                duration=duration_min, 
+                requester=user_name
+            )
+
             run = await app.send_photo(
                 original_chat_id,
                 photo=config.TELEGRAM_VIDEO_URL if video else config.TELEGRAM_AUDIO_URL,
-                caption=_["stream_1"].format(link, title[:23], duration_min, user_name),
+                caption=caption_text,
                 reply_markup=InlineKeyboardMarkup(button),
+                parse_mode=ParseMode.HTML
             )
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
@@ -377,16 +427,21 @@ async def stream(
             )
             img = await get_thumb(vidid)
             button = stream_markup(_, chat_id)
+            
+            # CUSTOM CAPTION
+            caption_text = stream_msg_track.format(
+                link=f"https://t.me/{app.username}?start=info_{vidid}",
+                title=title[:23],
+                duration=duration_min,
+                requester=user_name
+            )
+
             run = await app.send_photo(
                 original_chat_id,
                 photo=img,
-                caption=_["stream_1"].format(
-                    f"https://t.me/{app.username}?start=info_{vidid}",
-                    title[:23],
-                    duration_min,
-                    user_name,
-                ),
+                caption=caption_text,
                 reply_markup=InlineKeyboardMarkup(button),
+                parse_mode=ParseMode.HTML
             )
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
@@ -432,11 +487,18 @@ async def stream(
                 forceplay=forceplay,
             )
             button = stream_markup(_, chat_id)
+            
+            # CUSTOM CAPTION (LIVE)
+            caption_text = stream_msg_live.format(
+                requester=user_name
+            )
+
             run = await app.send_photo(
                 original_chat_id,
                 photo=config.STREAM_IMG_URL,
-                caption=_["stream_2"].format(user_name),
+                caption=caption_text,
                 reply_markup=InlineKeyboardMarkup(button),
+                parse_mode=ParseMode.HTML
             )
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
