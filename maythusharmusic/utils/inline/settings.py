@@ -1,6 +1,5 @@
 from typing import Union
-
-from pyrogram.types import InlineKeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 def setting_markup(_):
@@ -19,7 +18,7 @@ def setting_markup(_):
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def vote_mode_markup(_, current, mode: Union[bool, str] = None):
@@ -47,7 +46,7 @@ def vote_mode_markup(_, current, mode: Union[bool, str] = None):
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def auth_users_markup(_, status: Union[bool, str] = None):
@@ -70,7 +69,7 @@ def auth_users_markup(_, status: Union[bool, str] = None):
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def playmode_users_markup(
@@ -109,7 +108,7 @@ def playmode_users_markup(
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def audio_quality_markup(
@@ -155,7 +154,7 @@ def audio_quality_markup(
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def video_quality_markup(
@@ -203,4 +202,4 @@ def video_quality_markup(
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
