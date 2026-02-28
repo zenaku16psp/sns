@@ -1,4 +1,4 @@
-from pyrogram.types import InlineKeyboardButton
+from aiogram.types import InlineKeyboardButton
 
 import config
 from maythusharmusic import app
@@ -22,6 +22,7 @@ def private_panel(_):
             InlineKeyboardButton(
                 text=_["S_B_1"], 
                 url=f"https://t.me/{app.username}?startgroup=s&admin=delete_messages+manage_video_chats+pin_messages+invite_users+ban_users"
+                style="primary"
             )
         ],
         [
