@@ -1,4 +1,4 @@
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 def botplaylist_markup(_):
@@ -13,7 +13,7 @@ def botplaylist_markup(_):
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def top_play_markup(_):
@@ -26,7 +26,7 @@ def top_play_markup(_):
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def get_playlist_markup(_):
@@ -40,10 +40,10 @@ def get_playlist_markup(_):
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
-def top_play_markup(_):
+def top_play_markup_v2(_):  # Function name ကိုပြောင်းထားပါတယ် (duplicate ဖြစ်နေလို့)
     buttons = [
         [InlineKeyboardButton(text=_["PL_B_9"], callback_data="SERVERTOP Global")],
         [InlineKeyboardButton(text=_["PL_B_10"], callback_data="SERVERTOP Group")],
@@ -53,7 +53,7 @@ def top_play_markup(_):
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def failed_top_markup(_):
@@ -66,42 +66,38 @@ def failed_top_markup(_):
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
         ],
     ]
-    return buttons
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def warning_markup(_):
-    upl = InlineKeyboardMarkup(
+    buttons = [
         [
-            [
-                InlineKeyboardButton(
-                    text=_["PL_B_7"],
-                    callback_data="delete_whole_playlist",
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    text=_["BACK_BUTTON"],
-                    callback_data="del_back_playlist",
-                ),
-                InlineKeyboardButton(
-                    text=_["CLOSE_BUTTON"],
-                    callback_data="close",
-                ),
-            ],
-        ]
-    )
-    return upl
+            InlineKeyboardButton(
+                text=_["PL_B_7"],
+                callback_data="delete_whole_playlist",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text=_["BACK_BUTTON"],
+                callback_data="del_back_playlist",
+            ),
+            InlineKeyboardButton(
+                text=_["CLOSE_BUTTON"],
+                callback_data="close",
+            ),
+        ],
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 def close_markup(_):
-    upl = InlineKeyboardMarkup(
+    buttons = [
         [
-            [
-                InlineKeyboardButton(
-                    text=_["CLOSE_BUTTON"],
-                    callback_data="close",
-                ),
-            ]
+            InlineKeyboardButton(
+                text=_["CLOSE_BUTTON"],
+                callback_data="close",
+            ),
         ]
-    )
-    return upl
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
